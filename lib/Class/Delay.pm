@@ -1,7 +1,7 @@
 use strict;
 package Class::Delay;
 require Class::Delay::Message;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub import {
     my $package = caller;
@@ -46,6 +46,7 @@ sub import {
             @delayed = $reorder->( @delayed ) if $reorder;
             # redispatch them in their new order
             $_->resume for @delayed;
+            return $return;
         };
 
         no strict 'refs';
